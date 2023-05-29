@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_KEY_LOGIN } from "../base";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Login() {
       password: password,
     };
     await axios
-      .post("auth/login", payload)
+      .post(API_KEY_LOGIN, payload)
       .then((r) => {
         localStorage.setItem("token", r.data);
         navigate("/dashboard");

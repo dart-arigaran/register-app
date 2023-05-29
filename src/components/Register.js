@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_KEY_REGISTER } from "../base";
 
 function Register() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Register() {
       password: password,
     };
     try {
-      await axios.post("auth/register", payload).then((r) => {
+      await axios.post(API_KEY_REGISTER, payload).then((r) => {
         localStorage.setItem("token", r.data);
         console.log(r.data);
         alert("successfully register");
