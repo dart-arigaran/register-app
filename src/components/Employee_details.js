@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_KEY_ALL_EMPLOYEE, API_KEY_DELETE_EMPLOYEE } from "../base";
+import { Delete_Employee } from "./Pages/Delete-Employee";
 
 function Employee_details() {
   const [user, setUser] = useState([]);
@@ -21,18 +22,31 @@ function Employee_details() {
   const Add_Employee_action = () => {
     navigate("/addemployee");
   };
-  const Delete_employee = (id) => {
-    axios
-      .delete(API_KEY_DELETE_EMPLOYEE + id, {
-        headers: { Authorization: "Bearer" + localStorage.getItem("token") },
-      })
-      .then((r) => {
-        window.location.reload();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const Update_employee = ({
+    id,
+    name,
+    email,
+    mobile,
+    designation,
+    date_of_joining,
+    epf_uan,
+    esi_number,
+    profile_photo,
+    date_of_relieving,
+  }) => {
+    localStorage.setItem("id", id);
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
+    localStorage.setItem("mobile", mobile);
+    localStorage.setItem("designation", designation);
+    localStorage.setItem("date_of_joining", date_of_joining);
+    localStorage.setItem("epf_uan", epf_uan);
+    localStorage.setItem("esi_number", esi_number);
+    localStorage.setItem("profile_photo", profile_photo);
+    localStorage.setItem("date_of_relieving", date_of_relieving);
+    navigate("/updateemployee");
   };
+
   return (
     <div>
       <h1>All Employee Details</h1>
@@ -62,25 +76,31 @@ function Employee_details() {
           </tr>
         </thead>
         <tbody>
-          {user.map((v) => (
+          {user.map((data) => (
             <tr>
-              <td>{v.id}</td>
-              <td>{v.name}</td>
-              <td>{v.email}</td>
-              <td>{v.mobile}</td>
-              <td>{v.designation}</td>
-              <td>{v.date_of_joining}</td>
-              <td>{v.epf_uan}</td>
-              <td>{v.esi_number}</td>
-              <td>{v.profile_photo}</td>
-              <td>{v.date_of_relieving}</td>
+              <td>{data.id}</td>
+              <td>{data.name}</td>
+              <td>{data.email}</td>
+              <td>{data.mobile}</td>
+              <td>{data.designation}</td>
+              <td>{data.date_of_joining}</td>
+              <td>{data.epf_uan}</td>
+              <td>{data.esi_number}</td>
+              <td>{data.profile_photo}</td>
+              <td>{data.date_of_relieving}</td>
               <td>
                 <div class="d-grid gap-2 d-md-block">
                   <button id="bt" className="btn btn-outline-primary btn-sm">
                     View
                   </button>
 
-                  <button id="bt" className="btn btn-outline-info btn-sm">
+                  <button
+                    id="bt"
+                    className="btn btn-outline-info btn-sm"
+                    onClick={() => {
+                      Update_employee(data);
+                    }}
+                  >
                     Edit
                   </button>
 
@@ -88,7 +108,7 @@ function Employee_details() {
                     id="bt"
                     className="btn btn-outline-danger btn-sm"
                     onClick={() => {
-                      Delete_employee(v.id);
+                      Delete_Employee(data.id);
                     }}
                   >
                     Delete

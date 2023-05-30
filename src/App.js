@@ -8,6 +8,7 @@ import No_Page from "./components/No_Page";
 import About from "./components/Pages/About";
 import Home from "./components/Pages/Home";
 import Add_Employee from "./components/Pages/Add_Employee";
+import Update_Employee from "./components/Pages/Update_Employee";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/details" element={<Employee_details />} />
             <Route path="/addemployee" element={<Add_Employee />} />
-
+            <Route path="/updateemployee" element={<Update_Employee />} />
             <Route path="*" element={<No_Page />} />
           </Routes>
         </Router>

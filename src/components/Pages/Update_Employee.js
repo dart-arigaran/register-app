@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_KEY_ADD_EMPLOYEE } from "../../base";
+import { API_KEY_UPDATE_EMPLOYEE } from "../../base";
 
-function Add_Employee() {
+function Update_Employee() {
   const navigate = useNavigate();
+  const [id, setId] = useState();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [mobile, setMobile] = useState();
@@ -15,9 +16,9 @@ function Add_Employee() {
   const [photo, setPhoto] = useState();
   const [leaving, setLeaving] = useState();
 
-  const addemployee = (e) => {
-    e.preventDefault();
+  useEffect(() => {
     let payload = {
+      id: id,
       name: name,
       email: email,
       mobile: mobile,
@@ -28,20 +29,33 @@ function Add_Employee() {
       profile_photo: photo,
       date_of_relieving: leaving,
     };
-
     axios
-      .post(API_KEY_ADD_EMPLOYEE, payload, {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      .delete(API_KEY_UPDATE_EMPLOYEE + id, payload, {
+        headers: { Authorization: "Bearer" + localStorage.getItem("token") },
       })
-      .then((res) => console.log(res.data), navigate("/details"))
-      .catch((err) => console.log(err));
-  };
-
+      .then(() => {
+        setId(localStorage.getItem("id"));
+        setName(localStorage.getItem("name"));
+        setEmail(localStorage.getItem("email"));
+        setMobile(localStorage.getItem("mobile"));
+        setDesignation(localStorage.getItem("designation"));
+        setJoining(localStorage.getItem("joining"));
+        setEpf(localStorage.getItem("epf"));
+        setEsi(localStorage.getItem("esi"));
+        setPhoto(localStorage.getItem("photo"));
+        setId(localStorage.getItem("leaving"));
+        setLeaving("/details");
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
   return (
-    <div id="addform">
-      <form onSubmit={addemployee} className="addform">
+    <div>
+      <form className="addform">
         <div className="row g-3">
-          <h1>ADD Employee Details ...</h1>
+          <h1>Update Employee Details ...</h1>
           <div className="col-md-6">
             <label className="form-label">Name</label>
             <input
@@ -125,7 +139,7 @@ function Add_Employee() {
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary">
-              Submit
+              Update
             </button>
           </div>
         </div>
@@ -134,4 +148,4 @@ function Add_Employee() {
   );
 }
 
-export default Add_Employee;
+export default Update_Employee;

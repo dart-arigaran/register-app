@@ -16,13 +16,15 @@ function Dashboard() {
     }
   }, []);
 
-  const header = { Authorization: "Bearer " + localStorage.getItem("token") };
-  console.log(header);
   const logoutAction = () => {
     axios
-      .post(API_KEY_LOGOUT, {
-        headers: header,
-      })
+      .post(
+        API_KEY_LOGOUT,
+        {},
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
       .then((r) => {
         localStorage.clear();
         console.log(r);
