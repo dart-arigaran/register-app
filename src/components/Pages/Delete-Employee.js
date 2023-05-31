@@ -6,7 +6,7 @@ export const Delete_Employee = (id) => {
     .delete(API_KEY_DELETE_EMPLOYEE + id, {
       headers: { Authorization: "Bearer" + localStorage.getItem("token") },
     })
-    .then((r) => {
+    .then(() => {
       window.location.reload();
     })
     .catch((e) => {

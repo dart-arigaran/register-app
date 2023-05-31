@@ -16,7 +16,7 @@ function Update_Employee() {
   const [photo, setPhoto] = useState();
   const [leaving, setLeaving] = useState();
 
-  useEffect(() => {
+  const Update_emp = async () => {
     let payload = {
       id: id,
       name: name,
@@ -29,31 +29,29 @@ function Update_Employee() {
       profile_photo: photo,
       date_of_relieving: leaving,
     };
-    axios
-      .delete(API_KEY_UPDATE_EMPLOYEE + id, payload, {
-        headers: { Authorization: "Bearer" + localStorage.getItem("token") },
-      })
-      .then(() => {
-        setId(localStorage.getItem("id"));
-        setName(localStorage.getItem("name"));
-        setEmail(localStorage.getItem("email"));
-        setMobile(localStorage.getItem("mobile"));
-        setDesignation(localStorage.getItem("designation"));
-        setJoining(localStorage.getItem("joining"));
-        setEpf(localStorage.getItem("epf"));
-        setEsi(localStorage.getItem("esi"));
-        setPhoto(localStorage.getItem("photo"));
-        setId(localStorage.getItem("leaving"));
-        setLeaving("/details");
-        window.location.reload();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    await axios.put(API_KEY_UPDATE_EMPLOYEE + id, payload, {
+      headers: { Authorization: "Bearer" + localStorage.getItem("token") },
+    });
+    navigate("/details");
+  };
+  useEffect(() => {
+    setId(localStorage.getItem("id"));
+    setName(localStorage.getItem("name"));
+    setEmail(localStorage.getItem("email"));
+    setMobile(localStorage.getItem("mobile"));
+    setDesignation(localStorage.getItem("designation"));
+    setJoining(localStorage.getItem("joining"));
+    setEpf(localStorage.getItem("epf"));
+    setEsi(localStorage.getItem("esi"));
+    setPhoto(localStorage.getItem("photo"));
+    setLeaving(localStorage.getItem("leaving"));
+    // navigate("/details");
+    // window.location.reload();
   }, []);
+
   return (
     <div>
-      <form className="addform">
+      <form onSubmit={Update_emp} className="addform">
         <div className="row g-3">
           <h1>Update Employee Details ...</h1>
           <div className="col-md-6">

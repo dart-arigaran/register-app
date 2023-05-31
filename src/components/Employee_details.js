@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_KEY_ALL_EMPLOYEE, API_KEY_DELETE_EMPLOYEE } from "../base";
 import { Delete_Employee } from "./Pages/Delete-Employee";
 
@@ -22,7 +22,7 @@ function Employee_details() {
   const Add_Employee_action = () => {
     navigate("/addemployee");
   };
-  const Update_employee = ({
+  const Update_Employee_Action = ({
     id,
     name,
     email,
@@ -45,6 +45,9 @@ function Employee_details() {
     localStorage.setItem("profile_photo", profile_photo);
     localStorage.setItem("date_of_relieving", date_of_relieving);
     navigate("/updateemployee");
+  };
+  const View_Employee_Action = () => {
+    navigate("/viewemployee");
   };
 
   return (
@@ -90,15 +93,21 @@ function Employee_details() {
               <td>{data.date_of_relieving}</td>
               <td>
                 <div class="d-grid gap-2 d-md-block">
-                  <button id="bt" className="btn btn-outline-primary btn-sm">
+                  <button
+                    id="bt"
+                    className="btn btn-outline-info btn-sm"
+                    onClick={() => {
+                      View_Employee_Action();
+                    }}
+                  >
                     View
                   </button>
 
                   <button
                     id="bt"
-                    className="btn btn-outline-info btn-sm"
+                    className="btn btn-outline-info btn-sm ms-1"
                     onClick={() => {
-                      Update_employee(data);
+                      Update_Employee_Action(data);
                     }}
                   >
                     Edit
@@ -106,7 +115,7 @@ function Employee_details() {
 
                   <button
                     id="bt"
-                    className="btn btn-outline-danger btn-sm"
+                    className="btn btn-outline-danger btn-sm ms-1"
                     onClick={() => {
                       Delete_Employee(data.id);
                     }}
