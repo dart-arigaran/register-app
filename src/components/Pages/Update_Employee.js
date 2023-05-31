@@ -17,7 +17,28 @@ function Update_Employee() {
   const [leaving, setLeaving] = useState();
 
   const Update_emp = async () => {
-    let payload = {
+    // let payload = {
+    //   id: id,
+    //   name: name,
+    //   email: email,
+    //   mobile: mobile,
+    //   designation: designation,
+    //   date_of_joining: joining,
+    //   epf_uan: epf,
+    //   esi_number: esi,
+    //   profile_photo: photo,
+    //   date_of_relieving: leaving,
+    // };
+    await axios.put(`https://apidemo.demodooms.com/api/update/${id}`, {
+      // name,
+      // email,
+      // mobile,
+      // designation,
+      // joining,
+      // epf,
+      // esi,
+      // photo,
+      // leaving,
       id: id,
       name: name,
       email: email,
@@ -28,10 +49,8 @@ function Update_Employee() {
       esi_number: esi,
       profile_photo: photo,
       date_of_relieving: leaving,
-    };
-    await axios.put(API_KEY_UPDATE_EMPLOYEE + id, payload, {
-      headers: { Authorization: "Bearer" + localStorage.getItem("token") },
     });
+
     navigate("/details");
   };
   useEffect(() => {
@@ -40,13 +59,11 @@ function Update_Employee() {
     setEmail(localStorage.getItem("email"));
     setMobile(localStorage.getItem("mobile"));
     setDesignation(localStorage.getItem("designation"));
-    setJoining(localStorage.getItem("joining"));
-    setEpf(localStorage.getItem("epf"));
-    setEsi(localStorage.getItem("esi"));
-    setPhoto(localStorage.getItem("photo"));
-    setLeaving(localStorage.getItem("leaving"));
-    // navigate("/details");
-    // window.location.reload();
+    setJoining(localStorage.getItem("date_of_joining"));
+    setEpf(localStorage.getItem("epf_uan"));
+    setEsi(localStorage.getItem("esi_number"));
+    setPhoto(localStorage.getItem("profile_photo"));
+    setLeaving(localStorage.getItem("date_of_relieving"));
   }, []);
 
   return (
@@ -60,6 +77,7 @@ function Update_Employee() {
               type="name"
               placeholder="Enter Your Name"
               class="form-control"
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -69,6 +87,7 @@ function Update_Employee() {
               type="email"
               placeholder="Enter Your email"
               class="form-control"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -78,6 +97,7 @@ function Update_Employee() {
               type="number"
               placeholder="Enter Your mobile no"
               class="form-control"
+              value={mobile}
               onChange={(e) => setMobile(e.target.value)}
             />
           </div>
@@ -87,6 +107,7 @@ function Update_Employee() {
               type="text"
               placeholder="Enter Your designation"
               class="form-control"
+              value={designation}
               onChange={(e) => setDesignation(e.target.value)}
             />
           </div>
@@ -96,6 +117,7 @@ function Update_Employee() {
               type="date"
               placeholder="Enter Your joining date"
               class="form-control"
+              value={joining}
               onChange={(e) => setJoining(e.target.value)}
             />
           </div>
@@ -105,6 +127,7 @@ function Update_Employee() {
               type="number"
               placeholder="Enter Your epf uan"
               class="form-control"
+              value={epf}
               onChange={(e) => setEpf(e.target.value)}
             />
           </div>
@@ -114,6 +137,7 @@ function Update_Employee() {
               type="number"
               placeholder="Enter Your esi no"
               class="form-control"
+              value={esi}
               onChange={(e) => setEsi(e.target.value)}
             />
           </div>
@@ -123,6 +147,7 @@ function Update_Employee() {
               type="text"
               placeholder="Enter Your photo"
               class="form-control"
+              value={photo}
               onChange={(e) => setPhoto(e.target.value)}
             />
           </div>
@@ -132,6 +157,7 @@ function Update_Employee() {
               type="date"
               placeholder="Enter Your relieving"
               class="form-control"
+              value={leaving}
               onChange={(e) => setLeaving(e.target.value)}
             />
           </div>

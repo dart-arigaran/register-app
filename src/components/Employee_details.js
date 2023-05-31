@@ -46,9 +46,6 @@ function Employee_details() {
     localStorage.setItem("date_of_relieving", date_of_relieving);
     navigate("/updateemployee");
   };
-  const View_Employee_Action = () => {
-    navigate("/viewemployee");
-  };
 
   return (
     <div>
@@ -93,17 +90,19 @@ function Employee_details() {
               <td>{data.date_of_relieving}</td>
               <td>
                 <div class="d-grid gap-2 d-md-block">
-                  <button
-                    id="bt"
+                  <Link
+                    to={`/viewemployee/${data.id}`}
                     className="btn btn-outline-info btn-sm"
-                    onClick={() => {
-                      View_Employee_Action();
-                    }}
                   >
                     View
-                  </button>
-
-                  <button
+                  </Link>
+                  <Link
+                    to={`/updateemployee/${data.id}`}
+                    className="btn btn-outline-info btn-sm"
+                  >
+                    Update
+                  </Link>
+                  {/* <button
                     id="bt"
                     className="btn btn-outline-info btn-sm ms-1"
                     onClick={() => {
@@ -111,7 +110,7 @@ function Employee_details() {
                     }}
                   >
                     Edit
-                  </button>
+                  </button> */}
 
                   <button
                     id="bt"

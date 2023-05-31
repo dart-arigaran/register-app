@@ -24,8 +24,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/details" element={<Employee_details />} />
             <Route path="/addemployee" element={<Add_Employee />} />
-            <Route path="/updateemployee" element={<Update_Employee />} />
-            <Route path="/viewemployee" element={<View />} />
+            <Route path="/updateemployee/:id" element={<Update_Employee />} />
+            <Route path="/viewemployee/:id" element={<View />} />
 
             <Route path="*" element={<No_Page />} />
           </Routes>
