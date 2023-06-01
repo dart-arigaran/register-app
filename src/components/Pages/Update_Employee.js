@@ -1,84 +1,79 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { API_KEY_UPDATE_EMPLOYEE } from "../../base";
+import { Link, useNavigate, useParams } from "react-router-dom";
+//import { API_KEY_UPDATE_EMPLOYEE, API_KEY_VIEW_EMPLOYEE } from "../../base";
 
 function Update_Employee() {
   const navigate = useNavigate();
-  const [id, setId] = useState();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [mobile, setMobile] = useState();
-  const [designation, setDesignation] = useState();
-  const [joining, setJoining] = useState();
-  const [epf, setEpf] = useState();
-  const [esi, setEsi] = useState();
-  const [photo, setPhoto] = useState();
-  const [leaving, setLeaving] = useState();
+  const { id } = useParams();
 
-  const Update_emp = async () => {
-    // let payload = {
-    //   id: id,
-    //   name: name,
-    //   email: email,
-    //   mobile: mobile,
-    //   designation: designation,
-    //   date_of_joining: joining,
-    //   epf_uan: epf,
-    //   esi_number: esi,
-    //   profile_photo: photo,
-    //   date_of_relieving: leaving,
-    // };
-    await axios.put(`https://apidemo.demodooms.com/api/update/${id}`, {
-      // name,
-      // email,
-      // mobile,
-      // designation,
-      // joining,
-      // epf,
-      // esi,
-      // photo,
-      // leaving,
-      id: id,
-      name: name,
-      email: email,
-      mobile: mobile,
-      designation: designation,
-      date_of_joining: joining,
-      epf_uan: epf,
-      esi_number: esi,
-      profile_photo: photo,
-      date_of_relieving: leaving,
-    });
+  const [inputData, setInputData] = useState({
+    id: id,
+    name: " ",
+    email: " ",
+    mobile: " ",
+    designation: " ",
+    date_of_joining: " ",
+    epf_uan: " ",
+    esi_number: " ",
+    profile_photo: " ",
+    date_of_relieving: " ",
+  });
 
-    navigate("/details");
-  };
   useEffect(() => {
-    setId(localStorage.getItem("id"));
-    setName(localStorage.getItem("name"));
-    setEmail(localStorage.getItem("email"));
-    setMobile(localStorage.getItem("mobile"));
-    setDesignation(localStorage.getItem("designation"));
-    setJoining(localStorage.getItem("date_of_joining"));
-    setEpf(localStorage.getItem("epf_uan"));
-    setEsi(localStorage.getItem("esi_number"));
-    setPhoto(localStorage.getItem("profile_photo"));
-    setLeaving(localStorage.getItem("date_of_relieving"));
+    axios
+      .get(`https://apidemo.demodooms.com/api/getoneemployee/${id}`, {
+        headers: { Authorization: "Bearer" + localStorage.getItem("token") },
+      })
+      .then((res) => setInputData(res.data))
+      .catch((err) => console.log(err));
   }, []);
+
+  const UpdateinputData = () => {
+    console.log(id);
+    const updateValue = {
+      name: inputData.name,
+      email: inputData.email,
+      mobile: inputData.mobile,
+      designation: inputData.designation,
+      date_of_joining: inputData.date_of_joining,
+      epf_uan: inputData.epf_uan,
+      esi_number: inputData.esi_number,
+      profile_photo: inputData.profile_photo,
+      date_of_relieving: inputData.date_of_relieving,
+    };
+    axios
+      .put(`https://apidemo.demodooms.com/api/update/${id}`, updateValue, {
+        headers: { Authorization: "Bearer" + localStorage.getItem("token") },
+      })
+      .then(() => {
+        alert("inputData updated succefuly");
+        navigate("/details");
+      });
+  };
 
   return (
     <div>
-      <form onSubmit={Update_emp} className="addform">
+      <form className="addform">
         <div className="row g-3">
           <h1>Update Employee Details ...</h1>
           <div className="col-md-6">
+            <label className="form-label">Id</label>
+            <input
+              disabled
+              type="number"
+              class="form-control"
+              value={inputData.id}
+            />
             <label className="form-label">Name</label>
             <input
               type="name"
-              placeholder="Enter Your Name"
               class="form-control"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter Your Name"
+              value={inputData.name}
+              onChange={(e) =>
+                setInputData({ ...inputData, name: e.target.value })
+              }
             />
           </div>
           <div className="col-md-6">
@@ -87,8 +82,10 @@ function Update_Employee() {
               type="email"
               placeholder="Enter Your email"
               class="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={inputData.email}
+              onChange={(e) =>
+                setInputData({ ...inputData, email: e.target.value })
+              }
             />
           </div>
           <div className="col-md-6">
@@ -97,8 +94,10 @@ function Update_Employee() {
               type="number"
               placeholder="Enter Your mobile no"
               class="form-control"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              value={inputData.mobile}
+              onChange={(e) =>
+                setInputData({ ...inputData, mobile: e.target.value })
+              }
             />
           </div>
           <div className="col-md-6">
@@ -107,8 +106,10 @@ function Update_Employee() {
               type="text"
               placeholder="Enter Your designation"
               class="form-control"
-              value={designation}
-              onChange={(e) => setDesignation(e.target.value)}
+              value={inputData.designation}
+              onChange={(e) =>
+                setInputData({ ...inputData, designation: e.target.value })
+              }
             />
           </div>
           <div className="col-md-6">
@@ -117,8 +118,10 @@ function Update_Employee() {
               type="date"
               placeholder="Enter Your joining date"
               class="form-control"
-              value={joining}
-              onChange={(e) => setJoining(e.target.value)}
+              value={inputData.date_of_joining}
+              onChange={(e) =>
+                setInputData({ ...inputData, joining: e.target.value })
+              }
             />
           </div>
           <div className="col-md-6">
@@ -127,8 +130,10 @@ function Update_Employee() {
               type="number"
               placeholder="Enter Your epf uan"
               class="form-control"
-              value={epf}
-              onChange={(e) => setEpf(e.target.value)}
+              value={inputData.epf_uan}
+              onChange={(e) =>
+                setInputData({ ...inputData, epf: e.target.value })
+              }
             />
           </div>
           <div className="col-md-4">
@@ -137,8 +142,10 @@ function Update_Employee() {
               type="number"
               placeholder="Enter Your esi no"
               class="form-control"
-              value={esi}
-              onChange={(e) => setEsi(e.target.value)}
+              value={inputData.esi_number}
+              onChange={(e) =>
+                setInputData({ ...inputData, esi: e.target.value })
+              }
             />
           </div>
           <div className="col-md-4">
@@ -147,8 +154,10 @@ function Update_Employee() {
               type="text"
               placeholder="Enter Your photo"
               class="form-control"
-              value={photo}
-              onChange={(e) => setPhoto(e.target.value)}
+              value={inputData.profile_photo}
+              onChange={(e) =>
+                setInputData({ ...inputData, photo: e.target.value })
+              }
             />
           </div>
           <div className="col-md-4">
@@ -157,14 +166,23 @@ function Update_Employee() {
               type="date"
               placeholder="Enter Your relieving"
               class="form-control"
-              value={leaving}
-              onChange={(e) => setLeaving(e.target.value)}
+              value={inputData.date_of_relieving}
+              onChange={(e) =>
+                setInputData({ ...inputData, leaving: e.target.value })
+              }
             />
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-outline-success"
+              onClick={UpdateinputData}
+            >
               Update
             </button>
+            <Link to={"/details"} className="btn btn-outline-info ms-4">
+              Back
+            </Link>
           </div>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_KEY_ADD_EMPLOYEE } from "../../base";
 
 function Add_Employee() {
@@ -124,9 +124,12 @@ function Add_Employee() {
             />
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-outline-success">
               Submit
             </button>
+            <Link to={"/details"} className="btn btn-outline-info ms-4">
+              Back
+            </Link>
           </div>
         </div>
       </form>

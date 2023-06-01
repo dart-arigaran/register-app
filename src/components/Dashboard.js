@@ -12,7 +12,7 @@ function Dashboard() {
       localStorage.getItem("token") == "" ||
       localStorage.getItem("token") == null
     ) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 
@@ -28,7 +28,7 @@ function Dashboard() {
       .then((r) => {
         localStorage.clear();
         console.log(r);
-        navigate("/");
+        navigate("/login");
       })
       .catch((e) => {
         console.log(e);

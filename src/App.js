@@ -10,6 +10,7 @@ import Home from "./components/Pages/Home";
 import Add_Employee from "./components/Pages/Add_Employee";
 import Update_Employee from "./components/Pages/Update_Employee";
 import View from "./components/Pages/View";
+import Model from "./components/Pages/Model";
 
 function App() {
   return (
@@ -17,15 +18,17 @@ function App() {
       <div className="App">
         <Router>
           <Routes>
-            <Route exact path="/" element={<Login />} />
+            <Route exact path="/" element={<Dashboard />} />
+            <Route exact path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/details" element={<Employee_details />} />
             <Route path="/addemployee" element={<Add_Employee />} />
             <Route path="/updateemployee/:id" element={<Update_Employee />} />
             <Route path="/viewemployee/:id" element={<View />} />
+            <Route path="/model" element={<Model />} />
 
             <Route path="*" element={<No_Page />} />
           </Routes>
