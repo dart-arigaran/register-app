@@ -31,8 +31,11 @@ function View() {
       <p>ESI No : {data.esi_number}</p>
       <p> Photo : {data.profile_photo} </p>
       <p>D.O.R : {data.date_of_relieving}</p>
-      <Link to={"/updateemployee"} className="btn btn-outline-info btn-sm">
-        Edit
+      <Link
+        to={`/updateemployee/${data.id}`}
+        className="btn btn-outline-info btn-sm"
+      >
+        Update
       </Link>
       <Link to={"/details"} className="btn btn-outline-success btn-sm ms-2">
         Back
