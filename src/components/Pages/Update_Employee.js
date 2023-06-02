@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-//import { API_KEY_UPDATE_EMPLOYEE, API_KEY_VIEW_EMPLOYEE } from "../../base";
+import { API_KEY_UPDATE_EMPLOYEE, API_KEY_VIEW_EMPLOYEE } from "../../base";
 
 function Update_Employee() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Update_Employee() {
 
   useEffect(() => {
     axios
-      .get(`https://apidemo.demodooms.com/api/getoneemployee/${id}`, {
+      .get(API_KEY_VIEW_EMPLOYEE + id, {
         headers: { Authorization: "Bearer" + localStorage.getItem("token") },
       })
       .then((res) => setInputData(res.data))
@@ -43,7 +43,7 @@ function Update_Employee() {
       date_of_relieving: inputData.date_of_relieving,
     };
     axios
-      .put(`https://apidemo.demodooms.com/api/update/${id}`, updateValue, {
+      .put(API_KEY_UPDATE_EMPLOYEE + id, updateValue, {
         headers: { Authorization: "Bearer" + localStorage.getItem("token") },
       })
       .then(() => {
