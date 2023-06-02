@@ -3,11 +3,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_KEY_ALL_EMPLOYEE } from "../base";
 import { Delete_Employee } from "./Pages/Delete-Employee";
+import Model from "./Pages/Model";
 // import { Edit_Update } from "./Pages/Update_Employee";
 // import { View } from "./Pages/View";
 
 function Employee_details() {
   const [user, setUser] = useState([]);
+  const [currentpage, setCurrentpage] = useState(1);
+  const record_per_page = 5;
+  const lastindex = currentpage * record_per_page;
+  const firstinex = lastindex - record_per_page;
+  const records = user.slice(firstinex, lastindex);
+  const npage = Math.ceil(user.length / record_per_page);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+
   const navigate = useNavigate();
   useEffect(() => {
     axios
@@ -29,12 +38,12 @@ function Employee_details() {
     <div>
       <h1>All Employee Details</h1>
       <button
-        className="btn btn-outline-info "
+        className="btn btn-success "
         onClick={() => {
           Add_Employee_action();
         }}
       >
-        Add employee
+        Add employee +
       </button>
 
       <table className="table  table-primary table-striped  table-hover">
@@ -54,7 +63,7 @@ function Employee_details() {
           </tr>
         </thead>
         <tbody>
-          {user.map((data) => (
+          {records.map((data) => (
             <tr>
               <td>{data.id}</td>
               <td>{data.name}</td>
@@ -112,14 +121,52 @@ function Employee_details() {
                   >
                     Delete
                   </button>
+                  <Model />
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <nav>
+        <ul className="pagination">
+          <li className="page-item">
+            <Link className="page-link" onClick={prepage}>
+              prev
+            </Link>
+          </li>
+          {numbers.map((n, i) => (
+            <li
+              className={`page-item ${currentpage === n ? "active" : ""}`}
+              key={i}
+            >
+              <Link className="page-link" onClick={() => changeCpage(n)}>
+                {n}
+              </Link>
+            </li>
+          ))}
+          <li className="page-item">
+            <Link className="page-link" onClick={nextpage}>
+              Next
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
+  function prepage() {
+    if (currentpage !== 1) {
+      setCurrentpage(currentpage - 1);
+    }
+  }
+  function changeCpage(id) {
+    setCurrentpage(id);
+  }
+  function nextpage() {
+    if (currentpage !== npage) {
+      setCurrentpage(currentpage + 1);
+    }
+  }
 }
 
 export default Employee_details;

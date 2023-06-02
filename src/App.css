@@ -34,3 +34,8 @@
   align-items: center;
   border-radius: 20px;
 }
+.footer {
+  margin-top: 20px;
+  background-color: aqua;
+  padding: 2em;
+}

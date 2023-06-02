@@ -1,9 +1,47 @@
 .home {
-  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
   width: auto;
-  color: red;
-  background-image: url("https://i.pinimg.com/736x/97/d5/ae/97d5aedc9e2b17ac9a49adde302504f3.jpg");
+  background-image: url("https://www.thedailymeal.com/img/gallery/the-menu-rule-youre-supposed-to-follow-at-fine-dining-restaurants/l-intro-1670362698.jpg");
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-attachment: scroll;
+}
+.bg-text {
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+#wel {
+  color: white;
+  font-weight: bold;
+}
+#to {
+  color: rgb(236, 27, 184);
+  font-weight: bold;
+}
+#log {
+  color: rgb(224, 247, 12);
+  font-weight: bold;
+}
+#i {
+  margin-left: 50px;
+  color: red;
+  font-weight: bold;
 }
