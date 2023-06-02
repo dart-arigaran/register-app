@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { API_KEY_ALL_EMPLOYEE, API_KEY_DELETE_EMPLOYEE } from "../base";
+import { API_KEY_ALL_EMPLOYEE } from "../base";
 import { Delete_Employee } from "./Pages/Delete-Employee";
-import { Edit_Update } from "./Pages/Update_Employee";
-import { View } from "./Pages/View";
+// import { Edit_Update } from "./Pages/Update_Employee";
+// import { View } from "./Pages/View";
 
 function Employee_details() {
   const [user, setUser] = useState([]);
@@ -24,30 +24,6 @@ function Employee_details() {
   const Add_Employee_action = () => {
     navigate("/addemployee");
   };
-  // const Update_Employee_Action = ({
-  //   id,
-  //   name,
-  //   email,
-  //   mobile,
-  //   designation,
-  //   date_of_joining,
-  //   epf_uan,
-  //   esi_number,
-  //   profile_photo,
-  //   date_of_relieving,
-  // }) => {
-  //   localStorage.setItem("id", id);
-  //   localStorage.setItem("name", name);
-  //   localStorage.setItem("email", email);
-  //   localStorage.setItem("mobile", mobile);
-  //   localStorage.setItem("designation", designation);
-  //   localStorage.setItem("date_of_joining", date_of_joining);
-  //   localStorage.setItem("epf_uan", epf_uan);
-  //   localStorage.setItem("esi_number", esi_number);
-  //   localStorage.setItem("profile_photo", profile_photo);
-  //   localStorage.setItem("date_of_relieving", date_of_relieving);
-  //   navigate("/updateemployee");
-  // };
 
   return (
     <div>
