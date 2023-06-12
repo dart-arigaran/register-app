@@ -33,6 +33,7 @@ export default function Model() {
         headers: { Authorization: "Bearer" + localStorage.getItem("token") },
       })
       .then((r) => {
+        console.log(r.data);
         setData(r.data);
       })
       .catch((e) => {
