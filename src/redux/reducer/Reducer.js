@@ -9,8 +9,9 @@ function Reducer(state = initialValue, action) {
   switch (action.type) {
     case "LOGIN":
       return {
+        ...state,
         isLoggedIn: true,
-        //token: action.payload,
+        token: action.payload,
         // userData: action.payload.userData,
       };
     case "LOGOUT":
