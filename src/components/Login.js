@@ -1,10 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_KEY_LOGIN } from "../base";
 
-function Login() {
+import { connect, useDispatch } from "react-redux";
+import Loginact from "../redux/action/Action";
+function Login({ Loginact }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,29 +17,12 @@ function Login() {
     console.log(localStorage.getItem("token"));
   }, []);
 
-  const loginAction = async (e) => {
-    setValidationErrors({});
+  const loginAction = (e) => {
     e.preventDefault();
-    let payload = {
-      email: email,
-      password: password,
-    };
-    await axios
-      .post(API_KEY_LOGIN, payload)
-      .then((r) => {
-        localStorage.setItem("token", r.data);
-        navigate("/");
-        alert("successfully login");
-      })
+    dispatch(Loginact(email, password));
 
-      .catch((e) => {
-        if (e.response.data.errors != undefined) {
-          setValidationErrors(e.response.data.errors);
-        }
-        if (e.response.data.error != undefined) {
-          setValidationErrors(e.response.data.error);
-        }
-      });
+    navigate("/");
+    alert("successfully login");
   };
 
   return (
@@ -100,7 +84,6 @@ function Login() {
           </div>
           <br />
           <button className="btn btn-success  mb-1">Login</button>
-
           <p className="text-center">
             I Dont have an account <Link to="/register">New User</Link>
           </p>
@@ -109,5 +92,4 @@ function Login() {
     </div>
   );
 }
-
-export default Login;
+export default connect(null, { Loginact })(Login);
