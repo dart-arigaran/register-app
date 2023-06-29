@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { connect, useDispatch } from "react-redux";
-import Loginact from "../redux/action/Action";
+import { Loginact } from "../redux/action/Action";
 function Login({ Loginact }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();

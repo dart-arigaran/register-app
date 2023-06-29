@@ -2,17 +2,22 @@ const initialValue = {
   userData: [],
   token: null,
   isLoggedIn: false,
-  user: null,
 };
 
 function Reducer(state = initialValue, action) {
+  console.log("10", action);
   switch (action.type) {
     case "LOGIN":
-      console.log("hello reducer");
       return {
-        token: action.payload,
         isLoggedIn: true,
-        userData: action.payload.userData,
+        //token: action.payload,
+        // userData: action.payload.userData,
+      };
+    case "LOGOUT":
+      return {
+        isLoggedIn: false,
+        // user: null,
+        // error: null
       };
     default:
       state;

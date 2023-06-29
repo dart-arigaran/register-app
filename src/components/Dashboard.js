@@ -3,8 +3,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { API_KEY_LOGOUT } from "../base";
+import { useDispatch } from "react-redux";
+import { Logout } from "../redux/action/Action";
 
 function Dashboard() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     if (
@@ -14,25 +17,30 @@ function Dashboard() {
       navigate("/login");
     }
   }, []);
-
   const logoutAction = () => {
-    axios
-      .post(
-        API_KEY_LOGOUT,
-        {},
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
-      .then((r) => {
-        localStorage.clear();
-        console.log(r);
-        navigate("/login");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    console.log("logout");
+    navigate("/login");
+    dispatch(Logout());
   };
+
+  // const logoutAction = () => {
+  //   axios
+  //     .post(
+  //       API_KEY_LOGOUT,
+  //       {},
+  //       {
+  //         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       localStorage.clear();
+  //       console.log(r);
+  //       navigate("/login");
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   return (
     <div>
