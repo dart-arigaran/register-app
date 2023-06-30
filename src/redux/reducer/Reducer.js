@@ -18,9 +18,8 @@ function Reducer(state = initialValue, action) {
 
     case "LOGOUT":
       return {
-        isLoggedIn: false,
-        // user: null,
-        // error: null
+        ...state,
+        token: "",
       };
     default:
       state;

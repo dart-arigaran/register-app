@@ -33,7 +33,9 @@ function Dashboard() {
         }
       )
       .then((r) => {
-        localStorage.clear();
+        localStorage.removeItem("token");
+        dispatch(Logout());
+        // localStorage.clear();
         console.log(r);
         navigate("/login");
       })
