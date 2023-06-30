@@ -1,14 +1,12 @@
-//
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import { connect, useDispatch } from "react-redux";
-import { login, Loginact } from "../redux/action/Action";
-import axios from "axios";
-import { API_KEY_LOGIN } from "../base";
-function Login({ Loginact }) {
+//import axios from "axios";
+//import { API_KEY_LOGIN } from "../base";
+import Loginact from "../redux/action/Action";
+import api from "../redux/Api/api";
+function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -21,40 +19,25 @@ function Login({ Loginact }) {
     console.log(localStorage.getItem("token"));
   }, []);
 
-  const loginAction = (e) => {
+  const loginAction = async (e) => {
     e.preventDefault();
-    dispatch(Loginact(email, password));
-
-    navigate("/");
-    alert("successfully login");
+    try {
+      const response = await api.post("auth/login", { email, password });
+      const token = response.data;
+      localStorage.setItem("token", token);
+      dispatch(Loginact(token));
+      navigate("/");
+      alert("login success");
+    } catch (e) {
+      console.error("Login failed:", e.message);
+      if (e.response.data.errors != undefined) {
+        setValidationErrors(e.response.data.errors);
+      }
+      if (e.response.data.error != undefined) {
+        setValidationErrors(e.response.data.error);
+      }
+    }
   };
-
-  // const loginAction = async (e) => {
-  //   setValidationErrors({});
-  //   e.preventDefault();
-  //   let payload = {
-  //     email: email,
-  //     password: password,
-  //   };
-  //   await axios
-  //     .post(API_KEY_LOGIN, payload)
-  //     .then((r) => {
-  //       localStorage.setItem("token", r.data);
-  //       dispatch(login(response.data.token));
-  //       navigate("/");
-  //       alert("successfully login");
-  //     })
-
-  //     .catch((e) => {
-  //       // if (e.response.data.errors != undefined) {
-  //       //   setValidationErrors(e.response.data.errors);
-  //       // }
-  //       // if (e.response.data.error != undefined) {
-  //       //   setValidationErrors(e.response.data.error);
-  //       // }
-  //     });
-  // };
-
   return (
     <div>
       <div className="form">
@@ -79,6 +62,8 @@ function Login({ Loginact }) {
               <input
                 type="email"
                 class="form-control"
+                placeholder="Email"
+                required
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -100,6 +85,8 @@ function Login({ Loginact }) {
               <input
                 type="password"
                 class="form-control"
+                placeholder="password"
+                required
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -123,4 +110,5 @@ function Login({ Loginact }) {
     </div>
   );
 }
-export default connect(null, { Loginact })(Login);
+export default Login;
+// export default connect(null, { Loginact })(Login);

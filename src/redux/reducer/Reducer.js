@@ -1,19 +1,21 @@
 const initialValue = {
   userData: [],
-  token: null,
-  isLoggedIn: false,
+  token: "",
+  //isLoggedIn: false,
 };
 
 function Reducer(state = initialValue, action) {
-  console.log("10", action);
   switch (action.type) {
     case "LOGIN":
+      console.log("10", action);
       return {
         ...state,
-        isLoggedIn: true,
         token: action.payload,
-        // userData: action.payload.userData,
+        //isLoggedIn: true,
+
+        //userData: action.payload.userData,
       };
+
     case "LOGOUT":
       return {
         isLoggedIn: false,

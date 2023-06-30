@@ -1,30 +1,17 @@
 import axios from "axios";
-//import { useNavigate } from "react-router-dom";
-import { API_KEY_LOGIN, API_KEY_LOGOUT } from "../../base";
 
-// export const login = (token) => {
-//   return {
-//     type: "LOGIN",
-//     payload: token,
-//   };
-// };
+import { API_KEY_LOGOUT } from "../../base";
 
-export const Loginact = (email, password) => {
-  let token;
-  axios
-    .post(API_KEY_LOGIN, { email, password })
-    .then((r) => {
-      localStorage.setItem("token", r.data);
-      token = r.data;
-    })
-    .catch((e) => {
-      "error";
-    });
+const Loginact = (token) => {
+  //localStorage.setItem("token", token);
+  console.log(token);
   return {
     type: "LOGIN",
     payload: token,
   };
 };
+
+export default Loginact;
 
 export const Logout = () => {
   axios

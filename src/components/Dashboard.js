@@ -17,30 +17,30 @@ function Dashboard() {
       navigate("/login");
     }
   }, []);
-  const logoutAction = () => {
-    console.log("logout");
-    navigate("/login");
-    dispatch(Logout());
-  };
-
   // const logoutAction = () => {
-  //   axios
-  //     .post(
-  //       API_KEY_LOGOUT,
-  //       {},
-  //       {
-  //         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       localStorage.clear();
-  //       console.log(r);
-  //       navigate("/login");
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
+  //   console.log("logout");
+  //   navigate("/login");
+  //   dispatch(Logout());
   // };
+
+  const logoutAction = () => {
+    axios
+      .post(
+        API_KEY_LOGOUT,
+        {},
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
+      .then((r) => {
+        localStorage.clear();
+        console.log(r);
+        navigate("/login");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <div>
@@ -66,11 +66,7 @@ function Dashboard() {
 
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/home"
-                >
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
                 <Link className="nav-link" to="/about">
